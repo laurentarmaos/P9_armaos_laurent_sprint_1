@@ -5,16 +5,18 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 @Entity
 @Table(name = "patient")
-public class User {
+public class Patient {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patient_id")
-	private Long userId;
+	private Long patientId;
 
 	@Column(name="first_name", nullable=false)
 	private String firstName;
@@ -22,6 +24,7 @@ public class User {
 	@Column(name="last_name", nullable=false)
 	private String lastName;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="birth_date", nullable=false)
 	private LocalDate birthDate;
 	
@@ -35,7 +38,7 @@ public class User {
 	private String phone;
 	
 	
-	public User() {}
+	public Patient() {}
 
 	
 	public String getFirstName() {
@@ -86,8 +89,8 @@ public class User {
 		this.phone = phone;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getPatientId() {
+		return patientId;
 	}
 
 	
