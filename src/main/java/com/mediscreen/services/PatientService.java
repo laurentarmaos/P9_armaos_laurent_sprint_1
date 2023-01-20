@@ -12,7 +12,7 @@ public interface PatientService {
 	
 	Patient findById(Long id);
 	
-	Patient updatePatient(Long id, Patient patient);
+	Patient updatePatient(Patient patient);
 	
 	void deletePatient(Long id);
 }

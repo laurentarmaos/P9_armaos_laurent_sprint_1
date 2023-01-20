@@ -40,9 +40,9 @@ public class PatientController {
 	}
 	
 	
-	@PutMapping("/patient/update/{id}")
-	public Patient updatePatient(@PathVariable("id") Long id, @RequestBody Patient patient) {
-		return patientService.updatePatient(id, patient);
+	@PutMapping("/patient/update")
+	public Patient updatePatient(@RequestBody Patient patient) {
+		return patientService.updatePatient(patient);
 	}
 	
 	
