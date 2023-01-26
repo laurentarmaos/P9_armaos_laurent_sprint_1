@@ -7,5 +7,5 @@ import com.mediscreen.entities.Patient;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long>{
-
+	Patient findByPatientId(Long id);
 }

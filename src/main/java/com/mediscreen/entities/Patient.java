@@ -93,7 +93,9 @@ public class Patient {
 		return patientId;
 	}
 
-	
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
 	
 	
 }
