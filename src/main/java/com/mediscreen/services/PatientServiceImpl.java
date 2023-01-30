@@ -43,13 +43,6 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient updatePatient(Patient dto) {
-//		Patient entity = patientRepository.findById(id).get();
-//		entity.setFirstName(dto.getFirstName());
-//		entity.setLastName(dto.getLastName());
-//		entity.setBirthDate(dto.getBirthDate());
-//		entity.setGender(dto.getGender());
-//		entity.setPhone(dto.getPhone());
-//		entity.setAddress(dto.getAddress());
 		
 		patientRepository.save(dto);
 		
