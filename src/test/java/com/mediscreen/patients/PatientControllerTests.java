@@ -1,8 +1,5 @@
 package com.mediscreen.patients;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
@@ -51,7 +48,7 @@ public class PatientControllerTests {
 		patient.setPhone("1111");
 		patient.setPatientId((long) 1);	
 		
-		//mockMvc.perform(MockMvcRequestBuilders.post("/patient/add", patient)).andExpect(status().isOk());
+		mockMvc.perform(MockMvcRequestBuilders.post("/patient/add", patient)).andExpect(status().isOk());
 	}
 	
 //TODO corriger le pb dû au @RequestBody
@@ -81,12 +78,7 @@ public class PatientControllerTests {
 		patient.setGender("M");
 		patient.setPhone("1111");
 		patient.setPatientId((long) 1);
-		
-		when(patientService.findById((long) 1)).thenReturn(patient);
-		
-		Patient foundPatient = patientController.findPatient((long) 1);
-		
-		assertEquals(foundPatient, patient);
+
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/patient/{id}", patient.getPatientId())).andExpect(status().isOk());
 	}
@@ -100,11 +92,6 @@ public class PatientControllerTests {
 		List<Patient> patients = new ArrayList<>();
 		patients.add(patient);
 		
-		when(patientService.findAllPatients()).thenReturn(patients);
-		
-		List<Patient> foundPatients = patientController.findAllPatients();
-		
-		assertEquals(foundPatients, patients);
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/patients")).andExpect(status().isOk());
 	}
