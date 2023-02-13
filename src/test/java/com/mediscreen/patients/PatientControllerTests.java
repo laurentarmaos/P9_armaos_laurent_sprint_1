@@ -1,5 +1,6 @@
 package com.mediscreen.patients;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
@@ -10,10 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediscreen.controller.PatientController;
 import com.mediscreen.entities.Patient;
 import com.mediscreen.services.PatientService;
@@ -36,34 +39,52 @@ public class PatientControllerTests {
 		mockMvc = MockMvcBuilders.standaloneSetup(patientController).build();
 	}
 	
-//TODO corriger le pb dû au @RequestBody	
+	private static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 	@Test
 	public void testAddPatient() throws Exception {
 		Patient patient = new Patient();
 		patient.setFirstName("firstname");
 		patient.setLastName("lastname");
 		patient.setAddress("address");
-		patient.setBirthDate(LocalDate.now());
 		patient.setGender("M");
 		patient.setPhone("1111");
 		patient.setPatientId((long) 1);	
 		
-		mockMvc.perform(MockMvcRequestBuilders.post("/patient/add", patient)).andExpect(status().isOk());
+		when(patientService.createPatient(patient)).thenReturn(patient);
+		
+		mockMvc.perform(MockMvcRequestBuilders.post("/patient/add")
+				.contentType(MediaType.APPLICATION_JSON)
+		        .content(asJsonString(patient)))
+		.andExpect(status().isOk());
+		
+		
 	}
 	
-//TODO corriger le pb dû au @RequestBody
+	
+	
+
 	@Test
 	public void testUpdatePatient() throws Exception {
 		Patient patient = new Patient();
 		patient.setFirstName("firstname");
 		patient.setLastName("lastname");
 		patient.setAddress("address");
-		patient.setBirthDate(LocalDate.now());
 		patient.setGender("M");
 		patient.setPhone("1111");
 		patient.setPatientId((long) 1);	
 		
-		//mockMvc.perform(MockMvcRequestBuilders.put("/patient/update", patient)).andExpect(status().isOk());
+		mockMvc.perform(MockMvcRequestBuilders.put("/patient/update")
+				.contentType(MediaType.APPLICATION_JSON)
+		        .content(asJsonString(patient)))
+		.andExpect(status().isOk());
 	}
 	
 	
