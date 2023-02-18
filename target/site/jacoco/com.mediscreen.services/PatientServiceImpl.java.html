@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Mediscreen</a> &gt; <a href="index.source.html" class="el_package">com.mediscreen.services</a> &gt; <span class="el_source">PatientServiceImpl.java</span></div><h1>PatientServiceImpl.java</h1><pre class="source lang-java linenums">package com.mediscreen.services;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.mediscreen.entities.Patient;
+import com.mediscreen.repository.PatientRepository;
+
+@Service
+public class PatientServiceImpl implements PatientService {
+	
+	private final PatientRepository patientRepository;
+	
+<span class="fc" id="L15">	public PatientServiceImpl(PatientRepository patientRepository) {</span>
+<span class="fc" id="L16">		this.patientRepository = patientRepository;</span>
+<span class="fc" id="L17">	}</span>
+
+	@Override
+	public Patient createPatient(Patient dto) {
+<span class="fc" id="L21">		Patient entity = new Patient();</span>
+<span class="fc" id="L22">		entity.setFirstName(dto.getFirstName());</span>
+<span class="fc" id="L23">		entity.setLastName(dto.getLastName());</span>
+<span class="fc" id="L24">		entity.setBirthDate(dto.getBirthDate());</span>
+<span class="fc" id="L25">		entity.setGender(dto.getGender());</span>
+<span class="fc" id="L26">		entity.setPhone(dto.getPhone());</span>
+<span class="fc" id="L27">		entity.setAddress(dto.getAddress());</span>
+		
+<span class="fc" id="L29">		patientRepository.save(entity);</span>
+		
+<span class="fc" id="L31">		return entity;</span>
+	}
+
+	@Override
+	public List&lt;Patient&gt; findAllPatients() {
+<span class="fc" id="L36">		return patientRepository.findAll();</span>
+	}
+	
+	@Override
+	public Patient findById(Long id) {
+<span class="fc" id="L41">		return patientRepository.findByPatientId(id);</span>
+	}
+
+	@Override
+	public Patient updatePatient(Patient dto) {
+		
+<span class="fc" id="L47">		patientRepository.save(dto);</span>
+		
+<span class="fc" id="L49">		return dto;</span>
+	}
+
+	@Override
+	public void deletePatient(Long id) {
+<span class="fc" id="L54">		patientRepository.deleteById(id);</span>
+		
+<span class="fc" id="L56">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
